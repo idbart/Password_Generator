@@ -31,7 +31,9 @@ public:
 	// constructors 
 	// default constor?? 
 	// i think not???
-																											// if the user does not provide a length, make it 4 words or 32 chars
+		
+	// change this constructor later to use a random length for wordlist passwords and a random ammount of cap and perms 
+																									// if the user does not provide a length, make it 4 words or 32 chars
 	Password(PasswordType type) : type(type), value(""), wordlistFilePath(""), capitalLetters(0), permutes(0) { this->length = type == PasswordType::WordList ? 4 : 32; };
 	Password(PasswordType type, int length, int capitalLetters, int permutes) : type(type), length(length), wordlistFilePath(""), capitalLetters(capitalLetters), permutes(permutes) { };
 

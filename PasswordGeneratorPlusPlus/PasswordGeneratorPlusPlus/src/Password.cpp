@@ -82,7 +82,10 @@ void Password::GenerateWordListPW()
 	std::cout << std::endl;
 #endif
 
-	if (this->capitalLetters > charLength) return;
+	// if the total char count of the password is not enough to satisfy the users requested caps and perms, return for now
+	// maybe in the future just do as many as possible or roll the dice on the words agian and hope for more chars????
+	if (this->capitalLetters + this->permutes > charLength) return;
+
 	// add capital letters
 	for (int i = 0; i < this->capitalLetters; i++)
 	{
@@ -99,7 +102,9 @@ void Password::GenerateWordListPW()
 		password.append(passwords[i]);
 	}
 
-	if (this->permutes > password.length()) return;
+#if DEBUG
+	if(this->permutes > 0) LOG("LEET PERMUTATIONS:");
+#endif
 	// add permutes
 	for (int i = 0; i < this->permutes; i++)
 	{
@@ -143,7 +148,26 @@ bool Password::CapitalizeChar(std::string& word)
 	}
 }
 
-bool Password::PermuteChar(std::string& word)
+bool Password::PermuteChar(std::string& string)
 {
+	std::unordered_map<char, std::string> leetAlpha = DEFAULT_LEET_MAP;
 
+	while (true)
+	{
+		// pick a random index and permute it if its not already capitalized
+		int charIndex = mymath::getRandomIntInRange(0, string.length() - 1);
+		char letter = string[charIndex];
+		if (std::isalpha(letter) && !std::isupper(letter))
+		{
+			std::string leetChar = leetAlpha[letter];
+			string.replace(charIndex, 1, leetChar);
+
+#if DEBUG
+			LOG('\t' << letter << '\t' << leetChar);
+#endif
+			break;
+		}
+	}
+
+	return true;
 }
