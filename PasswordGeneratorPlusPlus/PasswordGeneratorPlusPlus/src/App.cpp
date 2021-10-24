@@ -4,16 +4,22 @@
 #include <string>
 #include <format>
 #include "Password.h"
-#include "ioparsing.h"
-
-#define LOG(x) std::cout << x << std::endl
-#define LOG_ERROR(x) LOG(std::string("ERROR: ").append(x))
+#include "helper.h"
 
 
 int main(int argc, char* argv[])
 {
 	// parse command line arguments
-	std::unordered_map<std::string, std::string> args = ioparsing::parse_cmd_args(argc, argv);
+	std::unordered_map<std::string, std::string> args = myioparsing::parse_cmd_args(argc, argv);
+
+#if DEBUG
+	LOG("ARGS:");
+	LOG("\tKEY:\tVALUE:");LOG("");
+	for (std::pair<std::string, std::string> arg : args)
+	{
+		LOG(std::string("\t").append(arg.first).append("\t").append(arg.second));
+	}
+#endif
 
 	// if the user sets the help option, print useage info
 	if (args.find("-h") != args.end())
@@ -67,6 +73,9 @@ int main(int argc, char* argv[])
 	// generate password
 	password->Generate();
 
+#if DEBUG
+	LOG("OUTPUT:");
+#endif
 	// print password to console
 	LOG(password->GetValue());
 
