@@ -11,9 +11,9 @@ class Password
 {
 	// vars
 private:
-	std::string value;
-	PasswordType type;
-	std::string wordlistFilePath;
+	std::string _value;
+	PasswordType _type;
+	std::string _wordlistFilePath;
 
 public:
 	int length;
@@ -34,11 +34,11 @@ public:
 		
 	// change this constructor later to use a random length for wordlist passwords and a random ammount of cap and perms 
 																									// if the user does not provide a length, make it 4 words or 32 chars
-	Password(PasswordType type) : type(type), value(""), wordlistFilePath(""), capitalLetters(0), permutes(0) { this->length = type == PasswordType::WordList ? 4 : 32; };
-	Password(PasswordType type, int length, int capitalLetters, int permutes) : type(type), length(length), wordlistFilePath(""), capitalLetters(capitalLetters), permutes(permutes) { };
+	Password(PasswordType type);
+	Password(PasswordType type, int length, int capitalLetters, int permutes) : _type(type), length(length), _wordlistFilePath(""), capitalLetters(capitalLetters), permutes(permutes) { };
 
 	bool UseWordlistFile(const std::string& path);
-	const std::string& GetValue() const { return this->value; }
+	const std::string& GetValue() const { return this->_value; }
 	void Generate();
 };
 

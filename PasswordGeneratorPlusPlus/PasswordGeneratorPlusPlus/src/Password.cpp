@@ -6,12 +6,27 @@
 #include "helper.h"
 
 
+Password::Password(PasswordType type) : _type(type), _wordlistFilePath("")
+{
+	if (type == PasswordType::WordList)
+	{
+		this->length = DEFAULT_WL_LENGTH;
+		this->capitalLetters = DEFAULT_CAPS;
+		this->permutes = DEFAULT_PERMUTATIONS;
+	}
+	else if (type == PasswordType::RBA)
+	{
+		this->length = DEFAULT_RBA_LENGTH;
+	}
+}
+
+// set the file path for the word list file to be used by this class
 bool Password::UseWordlistFile(const std::string& path)
 {
 	// just check if the file exists, and if it does use it
 	if (std::ifstream(path).good())
 	{
-		this->wordlistFilePath = path;
+		this->_wordlistFilePath = path;
 		return true;
 	}
 	else
@@ -20,20 +35,21 @@ bool Password::UseWordlistFile(const std::string& path)
 	}
 }
 
-
+// generate the password
 void Password::Generate()
 {
-	if (this->type == PasswordType::RBA)
+	if (this->_type == PasswordType::RBA)
 	{
 		this->GenerateRBAPW();
 	}
-	else if (this->type == PasswordType::WordList)
+	else if (this->_type == PasswordType::WordList)
 	{
 		this->GenerateWordListPW();
 	}
 }
 
-
+// generate a rba password
+// {{private method}}
 void Password::GenerateRBAPW()
 {
 	// init the char array for the password
@@ -48,7 +64,7 @@ void Password::GenerateRBAPW()
 	}
 
 	password[this->length] = '\0';
-	this->value = std::string(password);
+	this->_value = std::string(password);
 }
 
 void Password::GenerateWordListPW()
@@ -56,7 +72,7 @@ void Password::GenerateWordListPW()
 	// lets be real, what the hell is this?
 	// theres gota be a more effiecent way
 	// figure it out later
-	std::vector<std::string> words = myfileio::getFileLines(this->wordlistFilePath);
+	std::vector<std::string> words = myfileio::getFileLines(this->_wordlistFilePath);
 
 	std::vector<std::string> passwords = std::vector<std::string>(this->length);
 	int charLength = 0;
@@ -114,8 +130,8 @@ void Password::GenerateWordListPW()
 		}
 	}
 
-	// set the value field to the final password
-	this->value = password;
+	// set the _value field to the final password
+	this->_value = password;
 }
 
 // capitalize one letter in a word

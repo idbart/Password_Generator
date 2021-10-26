@@ -1,12 +1,24 @@
 #pragma once
 
-
+// debug mode
 #define DEBUG true
 
+//default rba options
+#define DEFAULT_RBA_LENGTH 32
+
+// default wordlist options
 #define DEFAULT_WORDLIST_FILE_PATH "./words.txt"
 
+#define DEFAULT_WL_LENGTH mymath::getRandomIntInRange(3, 4)
+
+#define DEFAULT_CAPS mymath::getRandomIntInRange(1, 3)
+
+#define DEFAULT_PERMUTATIONS mymath::getRandomIntInRange(1, 3)
+
+// default map of leet code
 #define DEFAULT_LEET_MAP { {'a', "@"}, {'b', "|3"}, {'c', "["}, {'d', "[)"}, {'e', "3"}, {'f', "|="}, {'g', "&"}, {'h', "]-["}, {'i', "!"}, {'j', "]"}, {'k', "|{"}, {'l', "|_"}, {'m', "/\\/\\"}, {'n', "|\\|"}, {'o', "0"}, {'p', "|*"}, {'q', "(_,)"}, {'r', "|?"}, {'s', "$"}, {'t', "']['"}, {'u', "(_)"}, {'v', "\\/"}, {'w', "\\/\\/"}, {'x', "}{"}, {'y', "'/"}, {'z', "%"} }
 
+// usage string
 #define USAGE "Usage: passgen [...OPTIONS]\n\
 \n\
 options:\n\
