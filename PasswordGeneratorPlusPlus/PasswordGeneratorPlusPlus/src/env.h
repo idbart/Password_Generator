@@ -1,7 +1,12 @@
 #pragma once
 
 // debug mode
-#define DEBUG true
+#ifdef _DEBUG
+	#define DEBUG true
+#else
+	#define DEBUG false
+#endif // _DEBUG
+
 
 //default rba options
 #define DEFAULT_RBA_LENGTH 32
