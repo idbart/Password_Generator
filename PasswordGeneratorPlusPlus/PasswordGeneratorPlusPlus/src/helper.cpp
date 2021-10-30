@@ -49,10 +49,16 @@ unsigned int mymath::getRandomIntInRange(unsigned int lower, unsigned int upper)
 {
 	if (upper > lower)
 	{
-		std::default_random_engine rng;
-		std::random_device rd;
+		static std::default_random_engine rng;
 
-		rng.seed(rd());
+		static bool seeded = false;
+		if (!seeded)
+		{
+			std::random_device rd;
+			rng.seed(rd());
+
+			seeded = true;
+		}
 
 		unsigned int rbytes = rng();
 
