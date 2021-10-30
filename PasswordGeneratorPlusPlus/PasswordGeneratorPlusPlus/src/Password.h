@@ -25,15 +25,13 @@ private:
 	void GenerateRBAPW();
 	void GenerateWordListPW();
 	static bool CapitalizeChar(std::string& word);
-	static bool PermuteChar(std::string& word);
+	static bool PermuteChar(std::string& string);
+	static bool IsPermutable(std::string& string);
 
 public:
 	// constructors 
 	// default constor?? 
 	// i think not???
-		
-	// change this constructor later to use a random length for wordlist passwords and a random ammount of cap and perms 
-																									// if the user does not provide a length, make it 4 words or 32 chars
 	Password(PasswordType type);
 	Password(PasswordType type, int length, int capitalLetters, int permutes) : _type(type), length(length), _wordlistFilePath(""), capitalLetters(capitalLetters), permutes(permutes) { };
 

@@ -1,6 +1,7 @@
 #include "Password.h"
 #include "env.h"
 #include <random>
+#include <algorithm>
 #include <fstream>
 #include <vector>
 #include "helper.h"
@@ -49,7 +50,6 @@ void Password::Generate()
 }
 
 // generate a rba password
-// {{private method}}
 void Password::GenerateRBAPW()
 {
 	// init the char array for the password
@@ -134,13 +134,17 @@ void Password::GenerateWordListPW()
 	this->_value = password;
 }
 
-// capitalize one letter in a word
+// check if a string is permutable
+// meaning check if the string is not already entirely made up of capital letters and special chars
+bool Password::IsPermutable(std::string& string)
+{
+	return string.length() > 0 && !std::all_of(string.begin(), string.end(), [](unsigned char symbol) { return !std::isalpha(symbol) || std::isupper(symbol); });
+}
 
-// this needs more error handeling in the future
-// if the given word is already fully capitaized or is all non-alphabetic this method will create an infinite loop
+// capitalize one letter in a word
 bool Password::CapitalizeChar(std::string& word)
 {
-	if (word.length() > 0)
+	if (Password::IsPermutable(word))
 	{
 		// always capitaize first letter if not already capitaized
 		int nextTry = 0;
@@ -166,24 +170,31 @@ bool Password::CapitalizeChar(std::string& word)
 
 bool Password::PermuteChar(std::string& string)
 {
-	std::unordered_map<char, std::string> leetAlpha = DEFAULT_LEET_MAP;
-
-	while (true)
+	if(Password::IsPermutable(string)) 
 	{
-		// pick a random index and permute it if its not already capitalized
-		int charIndex = mymath::getRandomIntInRange(0, string.length() - 1);
-		char letter = string[charIndex];
-		if (std::isalpha(letter) && !std::isupper(letter))
+		static std::unordered_map<char, std::string> leetAlpha = DEFAULT_LEET_MAP;
+
+		while (true)
 		{
-			std::string leetChar = leetAlpha[letter];
-			string.replace(charIndex, 1, leetChar);
+			// pick a random index and permute it if its not already capitalized
+			int charIndex = mymath::getRandomIntInRange(0, string.length() - 1);
+			char letter = string[charIndex];
+			if (std::isalpha(letter) && !std::isupper(letter))
+			{
+				std::string leetChar = leetAlpha[letter];
+				string.replace(charIndex, 1, leetChar);
 
 #if DEBUG
-			LOG('\t' << letter << '\t' << leetChar);
+				LOG('\t' << letter << '\t' << leetChar);
 #endif
-			break;
+				break;
+			}
 		}
-	}
 
-	return true;
+		return true;
+	}
+	else
+	{
+		return false;
+	}
 }
