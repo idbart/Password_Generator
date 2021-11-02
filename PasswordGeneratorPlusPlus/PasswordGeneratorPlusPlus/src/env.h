@@ -12,7 +12,7 @@
 #define DEFAULT_RBA_LENGTH 32
 
 // default wordlist options
-#define DEFAULT_WORDLIST_FILE_PATH "./words.txt"
+#define DEFAULT_WORDLIST_FILE_PATH myreflection::getExeDirPath().append("\\words.txt")
 
 #define DEFAULT_WL_LENGTH mymath::getRandomIntInRange(3, 4)
 

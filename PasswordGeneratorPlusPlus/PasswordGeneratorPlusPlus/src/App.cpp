@@ -38,6 +38,9 @@ int main(int argc, char* argv[])
 	{
 		password = new Password(PasswordType::WordList);
 
+#if DEBUG
+		LOG("WORDLIST PATH: " << DEFAULT_WORDLIST_FILE_PATH);
+#endif
 		// set the password obj to use a file path input by the user if they input one
 		// if not use the default path
 		// if the file does not exist, print an error message and terminate

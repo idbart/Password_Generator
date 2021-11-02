@@ -22,3 +22,8 @@ namespace mymath
 {
 	unsigned int getRandomIntInRange(unsigned int lower, unsigned int upper);
 }
+
+namespace myreflection
+{
+	std::string getExeDirPath();
+}
