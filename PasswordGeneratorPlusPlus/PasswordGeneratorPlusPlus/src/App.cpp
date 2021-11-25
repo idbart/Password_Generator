@@ -81,6 +81,9 @@ int main(int argc, char* argv[])
 #endif
 	// print password to console
 	LOG(password->GetValue());
+	LOG("");
+
+	if (mysysmemmgmt::copyStringToClipboard(password->GetValue())) LOG("copied to clipboard!");
 
 #if DEBUG
 	std::cin.get();

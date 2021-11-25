@@ -27,3 +27,8 @@ namespace myreflection
 {
 	std::string getExeDirPath();
 }
+
+namespace mysysmemmgmt
+{
+	bool copyStringToClipboard(const std::string& text);
+}

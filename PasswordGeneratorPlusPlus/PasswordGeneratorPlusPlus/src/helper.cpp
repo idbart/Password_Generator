@@ -80,3 +80,28 @@ std::string myreflection::getExeDirPath()
 
 	return std::string(buffer).substr(0, pos);
 }
+
+bool mysysmemmgmt::copyStringToClipboard(const std::string& text)
+{
+	if (OpenClipboard(NULL))
+	{
+		EmptyClipboard();
+
+		HGLOBAL handel = GlobalAlloc(GMEM_MOVEABLE, text.size());
+		if (handel == NULL)
+		{
+			CloseClipboard();
+			return false;
+		}
+
+		memcpy(GlobalLock(handel), text.c_str(), text.size());
+		GlobalUnlock(handel);
+
+		HGLOBAL result = SetClipboardData(CF_TEXT, handel);
+
+		CloseClipboard();
+		GlobalFree(handel);
+		return result ? true : false;
+	}
+	else return false;
+}

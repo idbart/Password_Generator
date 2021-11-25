@@ -21,6 +21,7 @@
 #define DEFAULT_PERMUTATIONS mymath::getRandomIntInRange(1, 3)
 
 // default map of leet code
+// source: https://www.gamehouse.com/blog/leet-speak-cheat-sheet/
 #define DEFAULT_LEET_MAP { {'a', "@"}, {'b', "|3"}, {'c', "["}, {'d', "[)"}, {'e', "3"}, {'f', "|="}, {'g', "&"}, {'h', "]-["}, {'i', "!"}, {'j', "]"}, {'k', "|{"}, {'l', "|_"}, {'m', "/\\/\\"}, {'n', "|\\|"}, {'o', "0"}, {'p', "|*"}, {'q', "(_,)"}, {'r', "|?"}, {'s', "$"}, {'t', "']['"}, {'u', "(_)"}, {'v', "\\/"}, {'w', "\\/\\/"}, {'x', "}{"}, {'y', "'/"}, {'z', "%"} }
 
 // usage string
